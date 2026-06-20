@@ -1,7 +1,7 @@
 <x-layout>
   <section>
     <div class="mx-auto max-w-7xl p-4">
-      <h1 class="rounded-xl bg-white px-6 py-4 text-xl font-bold text-gray-700">TIM 404 - ASN Laravel</h1>
+      <h1 class="rounded-xl bg-white px-6 py-4 text-xl font-bold text-slate-700">TIM 404 - ASN Laravel</h1>
       <br>
       <div class="shadow-xs relative overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50">
         <table class="w-full text-left text-sm rtl:text-right">

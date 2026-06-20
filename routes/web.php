@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjectIdeaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,4 @@ Route::get('/', function () {
     return view('test', ['tim' => $tim]);
 });
 
-Route::get('/debug', function () {
-    return ['app_url' => config('app.url')];
-});
+Route::resource('ideas', ProjectIdeaController::class);
