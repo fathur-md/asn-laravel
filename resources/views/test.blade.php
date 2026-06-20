@@ -36,7 +36,7 @@
         <h2 class="font-semibold">Playground</h2>
         <br>
         <div>
-          <p>Test fathur</p>
+          <p>First commit test: auto-deploy GitHub CI/CD ke Railway berhasil dan live.</p>
         </div>
       </div>
     </div>
