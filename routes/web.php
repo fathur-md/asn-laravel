@@ -27,3 +27,7 @@ Route::get('/', function () {
     ];
     return view('test', ['tim' => $tim]);
 });
+
+Route::get('/debug', function () {
+    return ['app_url' => config('app.url')];
+});
