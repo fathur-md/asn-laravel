@@ -9,25 +9,23 @@ Setelah project di-clone atau di-download, buka folder project lalu jalankan per
 ```bash
 composer install
 npm install
+
+# Mac/Linux (Atau ubah langsung .env.example jadi -> .env)
 cp .env.example .env
+
+#Windows (Atau ubah langsung .env.example jadi -> .env)
+copy .env.example .env
+
 php artisan key:generate
 ```
 
 Jalankan project:
 
 ```bash
-php artisan serve --host=0.0.0.0 --port=8000
-npm run dev -- --host
+composer run dev
 ```
 
 Buka di browser laptop sendiri: `http://127.0.0.1:8000`
-
-Kalau mau dites dari perangkat lain dalam Wi-Fi yang sama, buka: `http://IP-LAPTOP:8000`
-
-Contoh cari IP laptop:
-
-- Mac/Linux: `ifconfig`
-- Windows: `ipconfig`
 
 Kalau project belum bisa jalan atau ada error, langsung tanya di grup WA saja supaya kita diskusi dan cari tahu bersama karena saya juga tidak tahu.
 
