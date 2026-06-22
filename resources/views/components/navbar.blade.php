@@ -1,13 +1,25 @@
-<header class="sticky top-0 z-50 w-full border-b border-neutral-200 bg-neutral-50/50 px-4 backdrop-blur-xl">
-  <nav class="mx-auto max-w-7xl">
-    <div class="flex items-center justify-between py-4">
-      <a href="/" class="overflow-hidden rounded-md font-medium">
-        <strong class="text-cyan-500">404 <span class="text-slate-700">DevTeam.</span></strong>
+@php
+  $menus = config('navigation');
+@endphp
+<header class="fixed top-2 z-50 w-full px-4">
+  <nav class="mx-auto max-w-5xl rounded-full bg-zinc-800/50 pl-4 backdrop-blur-xl">
+    <div class="flex items-center justify-between">
+      {{-- LOGO --}}
+      <a href="/" class="overflow-hidden rounded-md py-2 font-semibold">
+        <strong class="text-cyan-400">404 <span class="font-medium text-white">DevTeam.</span></strong>
       </a>
-      <div class="text-sm">
-        <a href="{{ route('ideas.index') }}"
-          class="shadow-xs rounded-md bg-gray-200 px-3 py-1.5 text-sm font-medium transition-all hover:bg-cyan-500 hover:text-white">Tambah
-          Project</a>
+      {{-- NAVIGATION --}}
+      <div class="flex items-center gap-1 self-stretch p-1 text-sm font-medium">
+        @foreach ($menus as $menu)
+          @php
+            $route = $menu['route'] ?? 'home';
+            $isActive = request()->routeIs($route);
+          @endphp
+          <a href="{{ route($menu['route'] ?? 'home') }}"
+            class="{{ $isActive ? 'text-zinc-800 bg-zinc-50' : 'text-white/90 hover:text-white hover:bg-white/10' }} flex items-center self-stretch rounded-full px-4 transition-all duration-300 ease-in-out active:scale-95">
+            {{ $menu['label'] }}
+          </a>
+        @endforeach
       </div>
     </div>
   </nav>

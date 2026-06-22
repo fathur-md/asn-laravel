@@ -10,9 +10,14 @@
         "Noto Color Emoji";
 }
 
-/*👉@layer base {
+@layer base {
+    body {
+        @apply flex min-h-dvh flex-col bg-zinc-100 text-gray-800 antialiased;
+    }
+    p {
+        @apply text-gray-600;
+    }
     button {
         @apply cursor-pointer;
     }
 }
-👈*/

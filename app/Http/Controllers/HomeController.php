@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    private function getData()
+    {
+        return  [
+            [
+                'id' => 1,
+                'nama'  => 'Ferdiyansyah Pratama Putra',
+                'nim'   => '241110117',
+                'role'  => 'ketua'
+            ],
+            [
+                'id' => 2,
+                'nama'  => 'Muhammad Fathurrahman',
+                'nim'   => '241110109',
+                'role'  => 'anggota'
+            ],
+            [
+                'id'    => 3,
+                'nama'  => 'Julius Flaviano Aleo Keu',
+                'nim'   => '241110082',
+                'role'  => 'anggota'
+            ],
+            [
+                'id' => 4,
+                'nama'  => 'Maria Violeta V. Wungubelen',
+                'nim'   => '241110105',
+                'role'  => 'anggota'
+            ],
+            [
+                'id' => 5,
+                'nama'  => 'Rey',
+                'nim'   => '123',
+                'role'  => 'anggota'
+            ]
+        ];
+    }
+    /**
+     * Display a listing of the resource.
+     */
+
+    public function index()
+    {
+        $tim = $this->getData();
+        return view('home.index', compact('tim'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
