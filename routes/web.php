@@ -16,8 +16,8 @@ Route::get('/', function () {
             'role'  => 'anggota'
         ],
         [
-            'nama'  => 'Dwi Angga Hermawan',
-            'nim'   => '241110019',
+            'nama'  => 'Julius Flaviano Aleo Keu',
+            'nim'   => '241110082',
             'role'  => 'anggota'
         ],
         [
