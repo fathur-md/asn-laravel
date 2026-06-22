@@ -17,7 +17,7 @@ Route::get('/', function () {
         ],
         [
             'nama'  => 'Dwi Angga Hermawan',
-            'nim'   => '123',
+            'nim'   => '241110019',
             'role'  => 'anggota'
         ],
         [
