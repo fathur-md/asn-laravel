@@ -24,6 +24,11 @@ Route::get('/', function () {
             'nama'  => 'Violetta Wungubelen',
             'nim'   => '123',
             'role'  => 'anggota'
+        ],
+        [
+            'nama'  => 'Rey',
+            'nim'   => '123',
+            'role'  => 'anggota'
         ]
     ];
     return view('test', ['tim' => $tim]);
