@@ -5,7 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), "");
-    const enableHmr = env.VITE_HMR === "true";
 
     return {
         plugins: [
@@ -25,7 +24,7 @@ export default defineConfig(({ mode }) => {
                 ignored: ["**/storage/framework/views/**"],
             },
             hmr: {
-                host: env.VITE_HMR,
+                host: env.VITE_HOST,
             },
         },
     };

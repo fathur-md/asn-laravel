@@ -12,5 +12,5 @@
       </div>
     </div>
   </section> --}}
-  <x-team :tim="$tim" />
+  @include('home.team')
 </x-layout>

@@ -10,6 +10,7 @@ class ProjectIdeaController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $ideas = ProjectIdea::latest('created_at')->get();

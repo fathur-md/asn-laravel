@@ -6,48 +6,14 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private function getData()
-    {
-        return  [
-            [
-                'id' => 1,
-                'nama'  => 'Ferdiyansyah Pratama Putra',
-                'nim'   => '241110117',
-                'role'  => 'ketua'
-            ],
-            [
-                'id' => 2,
-                'nama'  => 'Muhammad Fathurrahman',
-                'nim'   => '241110109',
-                'role'  => 'anggota'
-            ],
-            [
-                'id'    => 3,
-                'nama'  => 'Julius Flaviano Aleo Keu',
-                'nim'   => '241110082',
-                'role'  => 'anggota'
-            ],
-            [
-                'id' => 4,
-                'nama'  => 'Maria Violeta V. Wungubelen',
-                'nim'   => '241110105',
-                'role'  => 'anggota'
-            ],
-            [
-                'id' => 5,
-                'nama'  => 'Rey',
-                'nim'   => '123',
-                'role'  => 'anggota'
-            ]
-        ];
-    }
+
     /**
      * Display a listing of the resource.
      */
 
     public function index()
     {
-        $tim = $this->getData();
+        $tim = AboutController::getTeam();
         return view('home.index', compact('tim'));
     }
 

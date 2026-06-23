@@ -8,5 +8,9 @@ return [
   [
     'label' => 'Ide Project',
     'route' => 'ideas.index'
+  ],
+  [
+    'label' => 'About Us',
+    'route' => 'about'
   ]
 ];
