@@ -140,7 +140,7 @@ class CampaignController extends Controller
                 'status' => 'active',
                 'excerpt' => 'Dukung pembelian buku, seragam, dan perangkat belajar untuk anak-anak kurang mampu.',
                 'description' => 'Campaign ini membantu anak-anak dari keluarga kurang mampu mendapatkan kebutuhan sekolah, seperti buku, seragam, tas, dan alat tulis agar mereka tetap semangat belajar.',
-                'cover_image' => 'https://images.unsplash.com/photo-1554774853-bf4c20587658?auto=format&fit=crop&w=1200&q=80',
+                'cover_image' => 'https://unsplash.com/id/foto/sekelompok-anak-laki-laki-berdiri-bersebelahan--sTHlFBd4VU',
                 'deadline' => '30 Juli 2026',
                 'organizer' => 'DonasiKita',
                 'location' => 'Jakarta',
