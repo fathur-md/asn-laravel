@@ -43,35 +43,7 @@ class CampaignController extends Controller
             'description' => 'required|string',
             'cover_image' => 'nullable|url',
         ]);
-    <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Campaign;
-use Illuminate\Http\Request;
-
-class CampaignController extends Controller
-{
-    public function index() { ... }
-    public function create() { ... }
-    public function store(Request $request) { ... }
-    public function show($id) { ... }
-    
-    public function edit($id)
-    {
-        $campaign = \App\Models\Campaign::findOrFail($id); 
-        return view('campaigns.edit', compact('campaign'));
-    }
-
-    public function destroy($id)
-    {
-        $campaign = \App\Models\Campaign::findOrFail($id);
-        $campaign->delete();
-        return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus!');
-    } 
-
-}
-    
         $campaign = [
             'id' => $this->nextCampaignId(),
             'title' => $data['title'],
@@ -79,7 +51,7 @@ class CampaignController extends Controller
             'target' => (int) $data['target'],
             'current' => 0,
             'donors' => 0,
-            'status' => 'draft',
+            'status' => 'active',
             'excerpt' => str()->limit($data['description'], 120),
             'description' => $data['description'],
             'cover_image' => $data['cover_image'] ?: 'https://images.unsplash.com/photo-1516569422542-23f5d04b9dca?auto=format&fit=crop&w=1200&q=80',
@@ -91,6 +63,31 @@ class CampaignController extends Controller
         session()->push('campaigns', $campaign);
 
         return redirect()->route('campaigns.index')->with('success', 'Campaign baru berhasil ditambahkan.');
+    }
+
+ 
+    public function edit($id)
+    {
+        $campaign = $this->findCampaign($id);
+
+        if (! $campaign) {
+            abort(404);
+        }
+
+        return view('campaigns.edit', compact('campaign'));
+    }
+
+  
+    public function destroy($id)
+    {
+        $campaigns = session('campaigns', []);
+        
+     
+        $filteredCampaigns = array_filter($campaigns, fn($c) => $c['id'] !== (int) $id);
+        
+        session(['campaigns' => array_values($filteredCampaigns)]);
+
+        return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus!');
     }
 
     public function donate(Request $request, $id)
@@ -230,7 +227,7 @@ class CampaignController extends Controller
     {
         $default = [
             ['name' => 'Rina', 'amount' => 150000, 'message' => 'Semoga cepat sukses!', 'date' => '20 Juni 2026'],
-            ['name' => 'Budi', 'amount' => 250000, 'message' => 'Turut membantu.' , 'date' => '18 Juni 2026'],
+            ['name' => 'Budi', 'amount' => 250000, 'message' => 'Turut membantu.', 'date' => '18 Juni 2026'],
             ['name' => 'Dewi', 'amount' => 100000, 'message' => 'Semoga bermanfaat.', 'date' => '16 Juni 2026'],
         ];
 
