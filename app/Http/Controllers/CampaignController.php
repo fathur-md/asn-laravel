@@ -14,7 +14,7 @@ class CampaignController extends Controller
         ]);
     }
 
-    public function show($id)
+   public function show($id)
     {
         $campaign = $this->findCampaign($id);
 
@@ -22,10 +22,17 @@ class CampaignController extends Controller
             abort(404);
         }
 
+        
+        $donations = $this->campaignDonations($id);
+        $comments = $this->campaignComments($id);
+
+        $donationsObject = collect($donations)->map(fn($item) => (object)$item);
+        $commentsObject = collect($comments)->map(fn($item) => (object)$item);
+
         return view('campaigns.show', [
-            'campaign' => $campaign,
-            'donations' => $this->campaignDonations($id),
-            'comments' => $this->campaignComments($id),
+            'campaign' => (object) $campaign,
+            'donations' => $donationsObject,
+            'comments' => $commentsObject,
         ]);
     }
 
