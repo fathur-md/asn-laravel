@@ -4,7 +4,8 @@
       <div class="rounded-4xl bg-white p-10 shadow-sm">
         <h1 class="text-3xl font-semibold text-slate-900">Edit Campaign</h1>
         <p class="mt-3 text-slate-600">Perbarui detail campaign Anda.</p>
-        <form action="{{ route('campaigns.update', $campaign) }}" method="POST" class="mt-10 space-y-6">
+        <form action="{{ route('campaigns.update', $campaign) }}" method="POST" class="mt-10 space-y-6"
+          enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <div>
@@ -19,14 +20,16 @@
               class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900">
               <option value="">Pilih kategori</option>
               @foreach (config('brand.categories') as $category)
-                <option value="{{ $category }}" {{ $campaign->category === $category ? 'selected' : '' }}>{{ $category }}</option>
+                <option value="{{ $category }}" {{ $campaign->category === $category ? 'selected' : '' }}>
+                  {{ $category }}</option>
               @endforeach
             </select>
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Target Donasi (Rp)</label>
             <input type="number" name="target_amount" min="1000" value="{{ $campaign->target_amount }}" required
-              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900" placeholder="25000000" />
+              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900"
+              placeholder="25000000" />
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Status</label>
@@ -45,9 +48,16 @@
               placeholder="Jelaskan tujuan, kebutuhan, dan manfaat campaign Anda.">{{ $campaign->description }}</textarea>
           </div>
           <div>
-            <label class="text-sm font-medium text-slate-700">URL Gambar Sampul (Opsional)</label>
-            <input type="url" name="cover_image" value="{{ $campaign->cover_image }}"
-              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900" placeholder="https://" />
+            <label class="mb-4 block text-sm font-medium text-slate-700">Gambar Sampul</label>
+            @if ($campaign->cover_image)
+              <div class="mb-4">
+                <img src="{{ Storage::url($campaign->cover_image) }}" alt="{{ $campaign->title }}"
+                  class="h-40 w-full rounded-2xl object-cover">
+              </div>
+            @endif
+            <input type="file" accept="image/*" name="cover_image"
+              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900"
+              placeholder="https://" />
           </div>
           <div class="flex gap-4">
             <a href="{{ route('campaigns.show', $campaign) }}"

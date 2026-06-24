@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -9,25 +11,24 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // In production, recent donations and created campaigns should come from persistent storage.
-        // When running locally or in testing, keep fallbacks.
-        $recentDonations = [];
-        $createdCampaigns = [];
 
-        if (app()->environment('local') || app()->environment('testing')) {
-            $recentDonations = [
-                ['campaign' => 'Bantu Anak Sekolah', 'amount' => 125000, 'date' => '12 Juni 2026'],
-                ['campaign' => 'Ambulans Gratis untuk Puskesmas', 'amount' => 225000, 'date' => '04 Juni 2026'],
-                ['campaign' => 'Paket Sembako Peduli Lansia', 'amount' => 75000, 'date' => '28 Mei 2026'],
-            ];
+        $createdCampaigns = Campaign::query()
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
 
-            $createdCampaigns = [
-                ['title' => 'Bantu Anak Sekolah', 'status' => 'Active'],
-                ['title' => 'Rumah Aman Korban Banjir', 'status' => 'Active'],
-            ];
-        }
+        $recentDonations = Donation::query()
+            ->with('campaign')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->take(5)
+            ->get();
 
-        return view('dashboard.index', compact('user', 'recentDonations', 'createdCampaigns'));
+        return view('dashboard.index', compact(
+            'user',
+            'createdCampaigns',
+            'recentDonations'
+        ));
     }
 
     public function admin()
@@ -35,18 +36,30 @@ class DashboardController extends Controller
         abort_unless(Auth::user()?->role === 'admin', 403);
 
         $stats = [
-            'total_campaigns' => 12,
-            'active_campaigns' => 8,
-            'total_donors' => 1463,
-            'total_donations' => 172300000,
+            'total_campaigns' => Campaign::count(),
+
+            'active_campaigns' => Campaign::where(
+                'status',
+                'active'
+            )->count(),
+
+            'total_donations' => Donation::sum(
+                'amount'
+            ),
+
+            'total_donors' => Donation::distinct(
+                'user_id'
+            )->count(),
         ];
 
-        $recentCampaigns = [
-            ['title' => 'Rumah Aman Korban Banjir', 'target' => 50000000, 'current' => 34200000],
-            ['title' => 'Ambulans Gratis untuk Puskesmas', 'target' => 32000000, 'current' => 19800000],
-            ['title' => 'Paket Sembako Peduli Lansia', 'target' => 13000000, 'current' => 10100000],
-        ];
+        $recentCampaigns = Campaign::query()
+            ->latest()
+            ->take(5)
+            ->get();
 
-        return view('dashboard.admin', compact('stats', 'recentCampaigns'));
+        return view(
+            'dashboard.admin',
+            compact('stats', 'recentCampaigns')
+        );
     }
 }

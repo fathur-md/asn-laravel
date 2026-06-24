@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-6xl px-4">
       <div class="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
         <div class="space-y-6">
-          <img class="rounded-4xl h-80 w-full object-cover" src="{{ $campaign->cover_image }}"
+          <img class="rounded-4xl h-80 w-full object-cover" src="{{ Storage::url($campaign->cover_image) }}"
             alt="{{ $campaign->title }}">
           <div class="flex flex-wrap items-center gap-3">
             <span
@@ -51,7 +51,7 @@
                 @foreach ($donations as $donation)
                   <div class="rounded-2xl bg-zinc-50 p-4">
                     <div class="flex items-center justify-between text-sm text-slate-900">
-                      <span>{{ $donation->is_anonymous ? 'Anonim' : ($donation->user->name ?? 'Pengguna') }}</span>
+                      <span>{{ $donation->is_anonymous ? 'Anonim' : $donation->user->name ?? 'Pengguna' }}</span>
                       <span class="font-semibold">Rp {{ number_format($donation->amount, 0, ',', '.') }}</span>
                     </div>
                     <p class="mt-2 text-sm text-slate-600">{{ $donation->donor_message }}</p>

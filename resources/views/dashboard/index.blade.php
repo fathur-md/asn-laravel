@@ -62,7 +62,7 @@
               <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h3 class="font-semibold text-slate-900">{{ $donation['campaign'] }}</h3>
+                    <h3 class="font-semibold text-slate-900">{{ $donation->campaign?->title ?? 'Campaign' }}</h3>
                     <p class="text-sm text-slate-500">{{ $donation['date'] }}</p>
                   </div>
                   <span class="text-lg font-semibold text-emerald-700">Rp
