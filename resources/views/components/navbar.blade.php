@@ -2,12 +2,13 @@
   $menus = config('navigation');
 @endphp
 <header class="fixed top-2 z-50 w-full px-4" x-data="{ open: false }">
-  <nav class="shadow-xs mx-auto max-w-5xl rounded-full border border-zinc-200/60 bg-white/40 pl-4 backdrop-blur-xl">
+  <nav class="shadow-xs mx-auto max-w-5xl rounded-full border border-zinc-200/60 bg-white/40 pl-2 backdrop-blur-xl">
     <div class="flex items-center justify-between">
       {{-- LOGO --}}
       <a href="/" class="overflow-hidden py-2 font-semibold">
-        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
-          <span class="rounded-full bg-emerald-500 px-2 py-1 text-white">DK</span>
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          <img src="{{ asset('logo.png') }}" alt="logo donasi kita" class="block h-8 w-auto">
           <span>DonasiKita</span>
         </span>
       </a>
@@ -19,7 +20,7 @@
             $isActive = request()->routeIs($route);
           @endphp
           <a href="{{ route($route) }}"
-            class="{{ $isActive ? 'shadow-sm bg-white/80 text-zinc-900 border border-zinc-200/60' : 'opacity-80 hover:opacity-100 hover:bg-zinc-500/10' }} flex items-center self-stretch rounded-full px-4 transition-all duration-200 ease-in-out active:scale-95">
+            class="{{ $isActive ? 'shadow-sm bg-white/80 text-zinc-900 border border-zinc-200/60' : 'opacity-80 hover:opacity-100 hover:bg-zinc-500/10' }} flex items-center rounded-full px-4 py-2 transition-all duration-200 ease-in-out active:scale-95">
             {{ $menu['label'] }}
           </a>
         @endforeach
@@ -27,13 +28,16 @@
 
       <div class="hidden items-center gap-2 pr-4 md:flex">
         @auth
-          <a href="{{ route('dashboard') }}" class="rounded-full bg-emerald-500 px-4 py-2 text-sm text-white">Dashboard</a>
+          <a href="{{ route('dashboard') }}"
+            class="rounded-full bg-emerald-500 px-4 py-2 text-sm text-white">Dashboard</a>
           <form method="POST" action="{{ route('logout') }}" class="inline">
             @csrf
-            <button class="rounded-full border border-emerald-500 px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50">Logout</button>
+            <button
+              class="rounded-full border border-emerald-500 px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50">Logout</button>
           </form>
         @else
-          <a href="{{ route('login') }}" class="rounded-full border border-emerald-500 bg-white px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50">Login</a>
+          <a href="{{ route('login') }}"
+            class="rounded-full border border-emerald-500 bg-white px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50">Login</a>
           <a href="{{ route('register') }}" class="rounded-full bg-emerald-500 px-4 py-2 text-sm text-white">Register</a>
         @endauth
       </div>
