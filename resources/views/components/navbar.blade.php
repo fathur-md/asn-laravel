@@ -50,7 +50,7 @@
   {{-- Mobile menu --}}
   <div class="fixed inset-0 -z-10" @click="open = false" x-transition x-show="open"></div>
   <div x-show="open" x-transition
-    class="fixed inset-x-4 top-14 z-20 flex flex-col rounded-2xl border border-zinc-200/60 bg-white/50 p-2 font-medium backdrop-blur-xl md:hidden">
+    class="z-22 top-21 fixed inset-x-4 flex flex-col rounded-2xl border border-zinc-200/60 bg-white/50 p-2 font-medium backdrop-blur-xl md:hidden">
     @foreach ($menus as $menu)
       @php
         $isActive = request()->routeIs($menu['route'] ?? 'home');
