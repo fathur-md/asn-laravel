@@ -29,3 +29,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->middleware('auth')->name('dashboard.admin');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+

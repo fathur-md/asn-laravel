@@ -59,16 +59,42 @@ class CampaignController extends Controller
             'user_id' => auth()->id(),
             'title' => $data['title'],
             'category' => $data['category'],
-            'target_amount' => $data['target_amount'],
-            'current_amount' => 0,
-            'donor_count' => 0,
+            'target' => (int) $data['target'],
+            'current' => 0,
+            'donors' => 0,
             'status' => 'active',
+            'excerpt' => str()->limit($data['description'], 120),
             'description' => $data['description'],
             'cover_image' => $path,
             'deadline_at' => now()->addWeeks(4),
         ]);
 
         return redirect()->route('campaigns.index')->with('success', 'Campaign baru berhasil ditambahkan.');
+    }
+
+ 
+    public function edit($id)
+    {
+        $campaign = $this->findCampaign($id);
+
+        if (! $campaign) {
+            abort(404);
+        }
+
+        return view('campaigns.edit', compact('campaign'));
+    }
+
+  
+    public function destroy($id)
+    {
+        $campaigns = session('campaigns', []);
+        
+     
+        $filteredCampaigns = array_filter($campaigns, fn($c) => $c['id'] !== (int) $id);
+        
+        session(['campaigns' => array_values($filteredCampaigns)]);
+
+        return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus!');
     }
 
     public function donate(Request $request, $id)
