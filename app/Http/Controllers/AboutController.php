@@ -24,24 +24,14 @@ class AboutController extends Controller
                 'nim'   => '241110109',
                 'role'  => 'anggota'
             ],
-            [
-                'id'    => 3,
-                'nama'  => 'Julius Flaviano Aleo Keu',
-                'nim'   => '241110082',
-                'role'  => 'anggota'
-            ],
+
             [
                 'id' => 4,
                 'nama'  => 'Maria Violeta V. Wungubelen',
                 'nim'   => '241110105',
                 'role'  => 'anggota'
             ],
-            [
-                'id' => 5,
-                'nama'  => 'Rey',
-                'nim'   => '123',
-                'role'  => 'anggota'
-            ]
+          
         ];
     }
 
