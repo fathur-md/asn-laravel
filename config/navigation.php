@@ -17,8 +17,4 @@ return [
     'label' => 'About',
     'route' => 'about',
   ],
-  [
-    'label' => 'Ide Project',
-    'route' => 'ideas.index'
-  ]
 ];
