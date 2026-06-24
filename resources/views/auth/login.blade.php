@@ -8,7 +8,7 @@
           @csrf
           <div>
             <label class="block text-sm font-medium text-slate-700">User ID</label>
-            <input type="number" name="id" value="{{ old('id') }}" required class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900" placeholder="Masukkan ID Anda" />
+            <input type="text" inputmode="numeric" name="id" value="{{ old('id') }}" required class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900" placeholder="Masukkan ID Anda" />
             @error('id')
               <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
             @enderror
