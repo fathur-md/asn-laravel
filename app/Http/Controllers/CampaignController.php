@@ -43,7 +43,35 @@ class CampaignController extends Controller
             'description' => 'required|string',
             'cover_image' => 'nullable|url',
         ]);
+    <?php
 
+namespace App\Http\Controllers;
+
+use App\Models\Campaign;
+use Illuminate\Http\Request;
+
+class CampaignController extends Controller
+{
+    public function index() { ... }
+    public function create() { ... }
+    public function store(Request $request) { ... }
+    public function show($id) { ... }
+    
+    public function edit($id)
+    {
+        $campaign = \App\Models\Campaign::findOrFail($id); 
+        return view('campaigns.edit', compact('campaign'));
+    }
+
+    public function destroy($id)
+    {
+        $campaign = \App\Models\Campaign::findOrFail($id);
+        $campaign->delete();
+        return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus!');
+    } 
+
+}
+    
         $campaign = [
             'id' => $this->nextCampaignId(),
             'title' => $data['title'],
