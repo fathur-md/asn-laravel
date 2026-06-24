@@ -11,31 +11,26 @@ class AboutController extends Controller
      */
     public static function getTeam()
     {
-        // Do not expose personal/team data in production code; provide sample data only for local/testing environments.
-        if (app()->environment('local') || app()->environment('testing')) {
-            return [
-                [
-                    'id' => 1,
-                    'nama' => 'Ferdiyansyah Pratama Putra',
-                    'nim' => '241110117',
-                    'role' => 'ketua',
-                ],
-                [
-                    'id' => 2,
-                    'nama' => 'Muhammad Fathurrahman',
-                    'nim' => '241110109',
-                    'role' => 'anggota',
-                ],
-                [
-                    'id' => 4,
-                    'nama' => 'Maria Violeta V. Wungubelen',
-                    'nim' => '241110105',
-                    'role' => 'anggota',
-                ],
-            ];
-        }
-
-        return [];
+        return [
+            [
+                'id' => 1,
+                'nama' => 'Ferdiyansyah Pratama Putra',
+                'nim' => '241110117',
+                'role' => 'ketua',
+            ],
+            [
+                'id' => 2,
+                'nama' => 'Muhammad Fathurrahman',
+                'nim' => '241110109',
+                'role' => 'anggota',
+            ],
+            [
+                'id' => 4,
+                'nama' => 'Maria Violeta V. Wungubelen',
+                'nim' => '241110105',
+                'role' => 'anggota',
+            ],
+        ];
     }
 
     public function index()
