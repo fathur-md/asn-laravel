@@ -4,7 +4,7 @@
       <div class="rounded-[2rem] bg-white p-10 shadow-sm">
         <h1 class="text-3xl font-semibold text-slate-900">Daftar akun DonasiKita</h1>
         <p class="mt-3 text-slate-600">Isi data Anda untuk membuat akun dan masuk menggunakan ID.</p>
-        <form action="{{ route('register.perform') }}" method="POST" class="mt-8 space-y-5">
+        <form action="{{ url('/register') }}" method="POST" class="mt-8 space-y-5">
           @csrf
           <div>
             <label class="block text-sm font-medium text-slate-700">Nama Lengkap</label>
