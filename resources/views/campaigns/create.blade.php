@@ -1,5 +1,5 @@
 <x-layout>
-  <section class="bg-emerald-50 py-16">
+  <section class="bg-emerald-50 py-16 pt-32">
     <div class="mx-auto max-w-3xl px-4">
       <div class="rounded-4xl bg-white p-10 shadow-sm">
         <h1 class="text-3xl font-semibold text-slate-900">Buat Campaign Baru</h1>
@@ -25,7 +25,7 @@
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Target Donasi (Rp)</label>
-            <input type="number" name="target" min="1000" required
+            <input type="number" name="target_amount" min="1000" required
               class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900"
               placeholder="25000000" />
           </div>
