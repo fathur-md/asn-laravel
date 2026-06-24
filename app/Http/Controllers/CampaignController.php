@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Comment;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
@@ -49,8 +50,10 @@ class CampaignController extends Controller
             'category' => 'required|string|max:100',
             'target_amount' => 'required|numeric|min:1000',
             'description' => 'required|string',
-            'cover_image' => 'nullable|url',
+            'cover_image' => 'required|image|max:2048',
         ]);
+        $path = $request->file('cover_image')
+            ->store('campaigns', 'public');
 
         $campaign = Campaign::create([
             'user_id' => auth()->id(),
@@ -61,7 +64,7 @@ class CampaignController extends Controller
             'donor_count' => 0,
             'status' => 'active',
             'description' => $data['description'],
-            'cover_image' => $data['cover_image'] ?: 'https://images.unsplash.com/photo-1516569422542-23f5d04b9dca?auto=format&fit=crop&w=1200&q=80',
+            'cover_image' => $path,
             'deadline_at' => now()->addWeeks(4),
         ]);
 
@@ -149,20 +152,35 @@ class CampaignController extends Controller
             'category' => 'required|string|max:100',
             'target_amount' => 'required|numeric|min:1000',
             'description' => 'required|string',
-            'cover_image' => 'nullable|url',
+            'cover_image' => 'nullable|image|max:2048',
             'status' => 'required|in:draft,active,completed,cancelled',
         ]);
+
+        $path = $campaign->cover_image;
+
+        if ($request->hasFile('cover_image')) {
+            if ($campaign->cover_image) {
+                Storage::disk('public')->delete(
+                    $campaign->cover_image
+                );
+            }
+
+            $path = $request->file('cover_image')
+                ->store('campaigns', 'public');
+        }
 
         $campaign->update([
             'title' => $data['title'],
             'category' => $data['category'],
             'target_amount' => $data['target_amount'],
             'description' => $data['description'],
-            'cover_image' => $data['cover_image'] ?: $campaign->cover_image,
+            'cover_image' => $path,
             'status' => $data['status'],
         ]);
 
-        return redirect()->route('campaigns.show', $campaign)->with('success', 'Campaign berhasil diperbarui.');
+        return redirect()
+            ->route('campaigns.show', $campaign)
+            ->with('success', 'Campaign berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -173,8 +191,16 @@ class CampaignController extends Controller
             abort(404);
         }
 
+        if ($campaign->cover_image) {
+            Storage::disk('public')->delete(
+                $campaign->cover_image
+            );
+        }
+
         $campaign->delete();
 
-        return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus.');
+        return redirect()
+            ->route('campaigns.index')
+            ->with('success', 'Campaign berhasil dihapus.');
     }
 }

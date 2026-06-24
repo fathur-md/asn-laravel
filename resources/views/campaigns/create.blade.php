@@ -5,7 +5,7 @@
         <h1 class="text-3xl font-semibold text-slate-900">Buat Campaign Baru</h1>
         <p class="mt-3 text-slate-600">Isi detail campaign untuk membantu penggalangan dana Anda lebih mudah ditemukan.
         </p>
-        <form action="{{ route('campaigns.store') }}" method="POST" class="mt-10 space-y-6">
+        <form action="{{ route('campaigns.store') }}" method="POST" enctype="multipart/form-data" class="mt-10 space-y-6">
           @csrf
           <div>
             <label class="text-sm font-medium text-slate-700">Judul Campaign</label>
@@ -37,7 +37,7 @@
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Gambar Sampul Campaign</label>
-            <input type="file" name="image" accept="image/*" required
+            <input type="file" name="cover_image" accept="image/*" required
               class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-500 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-emerald-700" />
           </div>
           <button type="submit"
