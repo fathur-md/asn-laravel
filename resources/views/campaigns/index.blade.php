@@ -16,10 +16,8 @@
               <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">{{ $campaign['category'] }}</span>
               <span class="text-sm text-slate-500">{{ $campaign['location'] }}</span>
             </div>
-            
             <h2 class="mt-4 text-2xl font-semibold text-slate-900">{{ $campaign['title'] }}</h2>
             <p class="mt-3 text-slate-600">{{ $campaign['excerpt'] }}</p>
-            
             <div class="mt-6 space-y-3 text-sm text-slate-500">
               <div class="flex items-center justify-between">
                 <span>Status</span>
@@ -34,23 +32,12 @@
                 <span class="font-semibold text-slate-900">Rp {{ number_format($campaign['current'], 0, ',', '.') }}</span>
               </div>
             </div>
-            
             <div class="mt-5 h-3 overflow-hidden rounded-full bg-zinc-200">
               <div class="h-full rounded-full bg-emerald-500" style="width: {{ min(100, round($campaign['current'] / max(1, $campaign['target']) * 100)) }}%"></div>
             </div>
-            
-            <div class="mt-6 flex flex-wrap items-center gap-2">
-              <a href="{{ route('campaigns.show', $campaign['id']) }}" class="rounded-full border border-emerald-600 px-4 py-2 text-xs font-semibold text-emerald-700 hover:bg-emerald-50">Lihat Detail</a>
-              
-              <a href="{{ route('campaigns.edit', $campaign['id']) }}" class="rounded-full border border-amber-600 px-4 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-50">Edit</a>
-              
-              <form action="{{ route('campaigns.destroy', $campaign['id']) }}" method="POST" onsubmit="return confirm('Hapus campaign ini?')" class="inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="rounded-full bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700">Hapus</button>
-              </form>
-              
-              <span class="ml-auto rounded-full bg-zinc-100 px-4 py-2 text-xs text-slate-600">{{ $campaign['donors'] }} donor</span>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="{{ route('campaigns.show', $campaign['id']) }}" class="rounded-full border border-emerald-600 px-5 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">Lihat Detail</a>
+              <span class="rounded-full bg-zinc-100 px-4 py-2 text-sm text-slate-600">{{ $campaign['donors'] }} donor</span>
             </div>
           </article>
         @endforeach

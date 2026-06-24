@@ -37,9 +37,9 @@
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Gambar Sampul Campaign</label>
-            <input type="file" name="image" accept="image/*" required
-              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-500 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-emerald-700" />
-          </div>
+     <input type="file" name="image" accept="image/*" required
+    class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-500 file:mr-4 file:rounded-xl file:border-0 file:bg-emerald-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-emerald-700" />
+</div>
           <button type="submit"
             class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-8 py-3 text-sm font-semibold text-white hover:bg-emerald-700">Simpan
             Campaign</button>
