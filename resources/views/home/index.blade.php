@@ -3,7 +3,9 @@
     <div class="mx-auto max-w-6xl px-4 text-center">
       <span
         class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700">DonasiKita</span>
-      <h1 class="mt-8 text-4xl font-semibold text-slate-900 sm:text-5xl">Berbagi jadi lebih mudah untuk semua campaign
+      <h1
+        class="bg-linear-to-r mt-8 from-cyan-500 to-purple-700 bg-clip-text text-4xl font-semibold text-transparent sm:text-5xl">
+        Berbagi jadi lebih mudah untuk semua campaign
         sosial</h1>
       <p class="mx-auto mt-6 max-w-3xl text-lg text-slate-600">Platform donasi dan penggalangan dana yang ramah,
         profesional, dan mudah diakses untuk organisasi maupun individu.</p>

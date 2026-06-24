@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -10,22 +9,31 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $recentDonations = [
-            ['campaign' => 'Bantu Anak Sekolah', 'amount' => 125000, 'date' => '12 Juni 2026'],
-            ['campaign' => 'Ambulans Gratis untuk Puskesmas', 'amount' => 225000, 'date' => '04 Juni 2026'],
-            ['campaign' => 'Paket Sembako Peduli Lansia', 'amount' => 75000, 'date' => '28 Mei 2026'],
-        ];
+        // In production, recent donations and created campaigns should come from persistent storage.
+        // When running locally or in testing, keep fallbacks.
+        $recentDonations = [];
+        $createdCampaigns = [];
 
-        $createdCampaigns = [
-            ['title' => 'Bantu Anak Sekolah', 'status' => 'Active'],
-            ['title' => 'Rumah Aman Korban Banjir', 'status' => 'Active'],
-        ];
+        if (app()->environment('local') || app()->environment('testing')) {
+            $recentDonations = [
+                ['campaign' => 'Bantu Anak Sekolah', 'amount' => 125000, 'date' => '12 Juni 2026'],
+                ['campaign' => 'Ambulans Gratis untuk Puskesmas', 'amount' => 225000, 'date' => '04 Juni 2026'],
+                ['campaign' => 'Paket Sembako Peduli Lansia', 'amount' => 75000, 'date' => '28 Mei 2026'],
+            ];
+
+            $createdCampaigns = [
+                ['title' => 'Bantu Anak Sekolah', 'status' => 'Active'],
+                ['title' => 'Rumah Aman Korban Banjir', 'status' => 'Active'],
+            ];
+        }
 
         return view('dashboard.index', compact('user', 'recentDonations', 'createdCampaigns'));
     }
 
     public function admin()
     {
+        abort_unless(Auth::user()?->role === 'admin', 403);
+
         $stats = [
             'total_campaigns' => 12,
             'active_campaigns' => 8,
