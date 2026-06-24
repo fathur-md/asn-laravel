@@ -16,16 +16,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'id' => 'required|integer|exists:users,id',
             'password' => 'required|string|min:8',
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::attempt(['id' => $credentials['id'], 'password' => $credentials['password']], $request->boolean('remember'))) {
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'));
         }
 
-        return back()->withErrors(['email' => 'Email atau password tidak cocok.'])->onlyInput('email');
+        return back()->withErrors(['id' => 'ID atau password tidak cocok.'])->onlyInput('id');
     }
 
     public function showRegister()
@@ -44,7 +44,8 @@ class AuthController extends Controller
         $user = User::create($data);
 
         Auth::login($user);
-        return redirect()->route('dashboard');
+
+        return redirect()->route('dashboard')->with('registered_id', $user->id);
     }
 
     public function logout(Request $request)
