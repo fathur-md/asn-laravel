@@ -38,6 +38,22 @@
             <div class="mt-6 flex flex-wrap gap-3">
               <a href="{{ route('campaigns.show', $campaign['id']) }}" class="rounded-full border border-emerald-600 px-5 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">Lihat Detail</a>
               <span class="rounded-full bg-zinc-100 px-4 py-2 text-sm text-slate-600">{{ $campaign['donors'] }} donor</span>
+                <a href="{{ route('campaigns.edit', $campaign['id']) }}" class="rounded-full border border-amber-600 px-5 py-2 text-sm font-semibold text-amber-700 hover:bg-amber-50">Edit</a>
+                 
+               
+                  <form action="{{ route('campaigns.update', $campaign['id']) }}" method="POST" onsubmit="return confirm('Update campaign ini?')">
+                    @csrf
+                    @method('PUT')
+                  
+                    <input type="hidden" name="status" value="active">
+                    <button type="submit" class="rounded-full border border-blue-600 px-5 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50">Update</button>
+                  </form>
+                
+                  <form action="{{ route('campaigns.destroy', $campaign['id']) }}" method="POST" onsubmit="return confirm('Hapus campaign ini?')">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="rounded-full bg-red-600 px-5 py-2 text-sm font-semibold text-white hover:bg-red-700">Hapus</button>
+                </form>
             </div>
           </article>
         @endforeach
