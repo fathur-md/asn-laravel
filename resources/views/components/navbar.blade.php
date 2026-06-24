@@ -60,5 +60,19 @@
         {{ $menu['label'] }}
       </a>
     @endforeach
+
+    <div class="mt-2 border-t border-zinc-200/60 pt-3">
+      @auth
+        <a href="{{ route('dashboard') }}" class="block rounded-xl px-4 py-3 text-lg text-emerald-700">Dashboard</a>
+        <form method="POST" action="{{ route('logout') }}" class="px-2 pb-2">
+          @csrf
+          <button
+            class="w-full rounded-full border border-emerald-500 px-4 py-3 text-left text-lg text-emerald-700 hover:bg-emerald-50">Logout</button>
+        </form>
+      @else
+        <a href="{{ route('login') }}" class="block rounded-xl px-4 py-3 text-lg text-emerald-700">Login</a>
+        <a href="{{ route('register') }}" class="block rounded-xl px-4 py-3 text-lg text-emerald-700">Register</a>
+      @endauth
+    </div>
   </div>
 </header>
