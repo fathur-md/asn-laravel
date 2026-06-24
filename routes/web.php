@@ -13,6 +13,8 @@ Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.
 Route::get('/campaigns/create', [CampaignController::class, 'create'])->middleware('auth')->name('campaigns.create');
 Route::post('/campaigns', [CampaignController::class, 'store'])->middleware('auth')->name('campaigns.store');
 Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('campaigns.show');
+Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('campaigns.edit');
+Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('campaigns.destroy');
 Route::post('/campaigns/{id}/donate', [CampaignController::class, 'donate'])->name('campaigns.donate');
 Route::post('/campaigns/{id}/comment', [CampaignController::class, 'comment'])->middleware('auth')->name('campaigns.comment');
 
@@ -26,3 +28,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->middleware('auth')->name('dashboard.admin');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
