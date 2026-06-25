@@ -12,10 +12,10 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Campaign::with(['user', 'donations'])
+        $campaigns = Campaign::with(['user'])
             ->withSum('donations', 'amount')
             ->withCount('donations')
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->get();
 
         return view('campaigns.index', [
@@ -25,16 +25,14 @@ class CampaignController extends Controller
 
     public function show($id)
     {
-        $campaign = Campaign::with(['donations.user', 'comments.user'])->find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::with([
+            'user',
+            'donations.user',
+            'comments.user'
+        ])->findOrFail($id);
 
         return view('campaigns.show', [
-            'campaign' => $campaign,
-            'donations' => $campaign->donations,
-            'comments' => $campaign->comments,
+            'campaign' => $campaign
         ]);
     }
 
@@ -50,6 +48,7 @@ class CampaignController extends Controller
             'category' => 'required|string|max:100',
             'target_amount' => 'required|numeric|min:1000',
             'description' => 'required|string',
+            'deadline_at' => 'required|date|after:today',
             'cover_image' => 'required|image|max:2048',
         ]);
 
@@ -66,7 +65,7 @@ class CampaignController extends Controller
             'status' => 'active',
             'description' => $data['description'],
             'cover_image' => $path,
-            'deadline_at' => now()->addWeeks(4),
+            'deadline_at' => $data['deadline_at'],
         ]);
 
         return redirect()->route('campaigns.index')->with('success', 'Campaign baru berhasil ditambahkan.');
@@ -74,11 +73,7 @@ class CampaignController extends Controller
 
     public function edit($id)
     {
-        $campaign = Campaign::find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::findOrFail($id);
 
         return view('campaigns.edit', [
             'campaign' => $campaign,
@@ -87,11 +82,7 @@ class CampaignController extends Controller
 
     public function update(Request $request, $id)
     {
-        $campaign = Campaign::find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::findOrFail($id);
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -129,11 +120,7 @@ class CampaignController extends Controller
 
     public function destroy($id)
     {
-        $campaign = Campaign::find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::findOrFail($id);
 
         if ($campaign->cover_image) {
             Storage::disk('public')->delete($campaign->cover_image);
@@ -148,11 +135,7 @@ class CampaignController extends Controller
 
     public function donate(Request $request, $id)
     {
-        $campaign = Campaign::find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::findOrFail($id);
 
         $data = $request->validate([
             'amount' => 'required|numeric|min:1000',
@@ -166,34 +149,27 @@ class CampaignController extends Controller
             'campaign_id' => $id,
             'user_id' => auth()->id(),
             'amount' => $data['amount'],
-            'donor_message' => $data['donor_message'] ?: 'Semoga bermanfaat untuk campaign ini.',
+            'donor_message' => $data['donor_message'] ?? 'Semoga bermanfaat untuk campaign ini.',
             'is_anonymous' => $isAnonymous,
             'status' => 'paid',
             'paid_at' => now(),
         ]);
-
-        $campaign->update([
-            'current_amount' => $campaign->current_amount + $data['amount'],
-            'donor_count' => $campaign->donor_count + 1,
-        ]);
+        $campaign->increment('current_amount', $data['amount']);
+        $campaign->increment('donor_count');
 
         return back()->with('success', 'Terima kasih atas donasi Anda!');
     }
 
     public function comment(Request $request, $id)
     {
-        $campaign = Campaign::find($id);
-
-        if (! $campaign) {
-            abort(404);
-        }
+        $campaign = Campaign::findOrFail($id);
 
         $data = $request->validate([
             'content' => 'required|string|max:300',
         ]);
 
         Comment::create([
-            'campaign_id' => $id,
+            'campaign_id' => $campaign->id,
             'user_id' => auth()->id(),
             'content' => $data['content'],
         ]);

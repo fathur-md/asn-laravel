@@ -10,6 +10,26 @@
               class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">{{ $campaign->category }}</span>
             <span class="text-sm text-slate-500">Deadline:
               {{ $campaign->deadline_at?->format('d M Y') ?? 'Tidak ada' }}</span>
+            @auth
+              @if ($campaign->user_id === auth()->id())
+                <a href="{{ route('campaigns.edit', $campaign) }}"
+                  class="rounded-full border border-cyan-600 px-4 py-1 text-xs font-semibold text-cyan-700 hover:bg-cyan-50">
+                  Edit
+                </a>
+
+                <form action="{{ route('campaigns.destroy', $campaign) }}" method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus campaign ini?')">
+
+                  @csrf
+                  @method('DELETE')
+
+                  <button type="submit"
+                    class="rounded-full border border-red-600 px-4 py-1 text-xs font-semibold text-red-700 hover:bg-red-50">
+                    Hapus
+                  </button>
+                </form>
+              @endif
+            @endauth
           </div>
           <h1 class="text-4xl font-semibold text-slate-900">{{ $campaign->title }}</h1>
           <p class="leading-8 text-slate-600">{{ $campaign->description }}</p>
@@ -35,9 +55,9 @@
             <div class="rounded-3xl border border-zinc-200 bg-white p-6">
               <p class="text-sm uppercase tracking-[0.2em] text-slate-500">Komentar</p>
               <div class="mt-4 space-y-4">
-                @foreach ($comments as $comment)
+                @foreach ($campaign->comments as $comment)
                   <div class="rounded-2xl bg-zinc-50 p-4">
-                    <p class="font-semibold text-slate-900">{{ $comment->user->name ?? 'Pengguna' }}</p>
+                    <p class="font-semibold text-slate-900">{{ $comment->user?->name ?? 'Pengguna' }}</p>
                     <p class="mt-2 text-sm text-slate-600">{{ $comment->content }}</p>
                     <p class="mt-2 text-xs text-slate-500">{{ $comment->created_at->format('d M Y') }}</p>
                   </div>
@@ -47,7 +67,7 @@
             <div class="rounded-3xl border border-zinc-200 bg-white p-6">
               <p class="text-sm uppercase tracking-[0.2em] text-slate-500">Riwayat donasi</p>
               <div class="mt-4 space-y-4">
-                @foreach ($donations as $donation)
+                @forelse ($campaign->donations as $donation)
                   <div class="rounded-2xl bg-zinc-50 p-4">
                     <div class="flex items-center justify-between text-sm text-slate-900">
                       <span>{{ $donation->is_anonymous ? 'Anonim' : $donation->user->name ?? 'Pengguna' }}</span>
@@ -56,7 +76,11 @@
                     <p class="mt-2 text-sm text-slate-600">{{ $donation->donor_message }}</p>
                     <p class="mt-2 text-xs text-slate-500">{{ $donation->created_at->format('d M Y') }}</p>
                   </div>
-                @endforeach
+                @empty
+                  <p class="text-sm text-slate-500">
+                    Belum ada donasi.
+                  </p>
+                @endforelse
               </div>
             </div>
           </div>
@@ -66,6 +90,15 @@
           <div class="rounded-4xl border border-zinc-200 bg-white p-8 shadow-sm">
             <h2 class="text-xl font-semibold text-slate-900">Form Donasi</h2>
             <p class="mt-3 text-sm text-slate-600">Isi nominal donasi dan dukungan Anda. Opsi anonim tersedia.</p>
+            @if ($errors->any())
+              <div class="mb-4 rounded-2xl bg-red-100 p-4 text-red-700">
+                <ul class="list-inside list-disc">
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
             <form action="{{ route('campaigns.donate', $campaign) }}" method="POST" class="mt-6 space-y-4">
               @csrf
               <label class="block text-sm font-medium text-slate-700">Nominal Donasi</label>

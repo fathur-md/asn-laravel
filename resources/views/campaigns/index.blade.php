@@ -55,7 +55,7 @@
                 </span>
 
                 <span class="text-sm text-slate-500">
-                  {{ $campaign->user?->name ?? 'DonasiKita' }}
+                  {{ ucfirst($campaign->user?->name) ?? 'DonasiKita' }}
                 </span>
               </div>
 
@@ -85,7 +85,7 @@
                 <div class="flex items-center justify-between">
                   <span>Donasi Terkumpul</span>
                   <span class="font-semibold text-slate-900">
-                    Rp {{ number_format($campaign->donations_sum_amount ?? 0, 0, ',', '.') }}
+                    Rp {{ number_format($campaign->current_amount ?? 0, 0, ',', '.') }}
                   </span>
                 </div>
               </div>
@@ -110,27 +110,35 @@
                 </a>
 
                 @auth
-                  <a href="{{ route('campaigns.edit', $campaign) }}"
-                    class="rounded-full border border-cyan-600 px-5 py-2 text-sm font-semibold text-cyan-700 hover:bg-cyan-50">
-                    Edit
-                  </a>
+                  @if ($campaign->user_id === auth()->id())
+                    <a href="{{ route('campaigns.edit', $campaign) }}"
+                      class="rounded-full border border-cyan-600 px-5 py-2 text-sm font-semibold text-cyan-700 hover:bg-cyan-50">
+                      Edit
+                    </a>
 
-                  <form action="{{ route('campaigns.destroy', $campaign) }}" method="POST" class="inline"
-                    onsubmit="return confirm('Yakin ingin menghapus campaign ini?')">
+                    <form action="{{ route('campaigns.destroy', $campaign) }}" method="POST" class="inline"
+                      onsubmit="return confirm('Yakin ingin menghapus campaign ini?')">
 
-                    @csrf
-                    @method('DELETE')
+                      @csrf
+                      @method('DELETE')
 
-                    <button type="submit"
-                      class="rounded-full border border-red-600 px-5 py-2 text-sm font-semibold text-red-700 hover:bg-red-50">
-                      Hapus
-                    </button>
-                  </form>
+                      <button type="submit"
+                        class="rounded-full border border-red-600 px-5 py-2 text-sm font-semibold text-red-700 hover:bg-red-50">
+                        Hapus
+                      </button>
+                    </form>
+                  @endif
                 @endauth
 
                 <span class="rounded-full bg-zinc-100 px-4 py-2 text-sm text-slate-600">
                   {{ $campaign->donations_count ?? 0 }} donor
                 </span>
+
+                <div class="ml-auto flex items-center justify-between text-sm text-gray-500">
+                  <span>
+                    Dibuat {{ $campaign->created_at->format('d M Y') }}
+                  </span>
+                </div>
               </div>
             </article>
           @endforeach

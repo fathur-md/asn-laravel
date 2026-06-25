@@ -2,6 +2,15 @@
   <section class="bg-emerald-50 py-16 pt-32">
     <div class="mx-auto max-w-3xl px-4">
       <div class="rounded-4xl bg-white p-10 shadow-sm">
+        @if ($errors->any())
+          <div class="mb-6 rounded-2xl bg-red-100 p-4 text-red-700">
+            <ul class="list-inside list-disc">
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
         <h1 class="text-3xl font-semibold text-slate-900">Buat Campaign Baru</h1>
         <p class="mt-3 text-slate-600">Isi detail campaign untuk membantu penggalangan dana Anda lebih mudah ditemukan.
         </p>
@@ -34,6 +43,14 @@
             <textarea name="description" rows="6" required
               class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900"
               placeholder="Jelaskan tujuan, kebutuhan, dan manfaat campaign Anda."></textarea>
+          </div>
+          <div>
+            <label class="text-sm font-medium text-slate-700">
+              Batas Waktu Campaign
+            </label>
+
+            <input type="date" name="deadline_at" value="{{ old('deadline_at') }}" required
+              class="mt-3 w-full rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-slate-900">
           </div>
           <div>
             <label class="text-sm font-medium text-slate-700">Gambar Sampul Campaign <small>* Max 2MB</small></label>
