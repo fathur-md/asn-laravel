@@ -81,15 +81,16 @@
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
           @foreach ($featuredCampaigns as $campaign)
-            <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
+            <article class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm">
               <img class="h-64 w-full object-cover" src="{{ Storage::url($campaign->cover_image) }}"
                 alt="{{ $campaign->title }}">
-              <div class="p-8">
+              <div class="flex flex-1 flex-col p-8">
                 <span
-                  class="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">{{ $campaign->category }}</span>
+                  class="inline-flex w-fit rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">{{ $campaign->category }}</span>
                 <h3 class="mt-4 text-2xl font-semibold text-slate-900">{{ $campaign['title'] }}</h3>
                 <p class="mt-3 text-slate-600">{{ $campaign->excerpt }}</p>
-                <div class="mt-6 space-y-4">
+                <br>
+                <div class="mt-auto space-y-4">
                   <div class="flex items-center justify-between text-sm text-slate-500">
                     <span>{{ $campaign->donor_count }} donor</span>
 

@@ -46,7 +46,8 @@
         {{-- Campaign List --}}
         <div class="mt-10 grid gap-6 lg:grid-cols-2">
           @foreach ($campaigns as $campaign)
-            <article class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <article
+              class="flex flex-col rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:shadow-md">
 
               <div class="flex items-start justify-between gap-4">
                 <span
@@ -63,7 +64,7 @@
                 {{ $campaign->title }}
               </h2>
 
-              <p class="mt-3 text-slate-600">
+              <p class="mt-3 flex-1 text-slate-600">
                 {{ $campaign->excerpt }}
               </p>
 
