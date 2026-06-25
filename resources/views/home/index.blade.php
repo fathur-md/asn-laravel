@@ -13,9 +13,15 @@
         <a href="{{ route('campaigns.index') }}"
           class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700">Lihat
           Campaign</a>
-        <a href="{{ route('campaigns.create') }}"
-          class="inline-flex items-center justify-center rounded-full border border-emerald-600 bg-white px-8 py-3 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-emerald-50">Buat
-          Campaign</a>
+        @auth
+          <a href="{{ route('campaigns.create') }}"
+            class="inline-flex items-center justify-center rounded-full border border-emerald-600 bg-white px-8 py-3 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-emerald-50">Buat
+            Campaign</a>
+        @else
+          <a href="{{ route('login') }}"
+            class="inline-flex items-center justify-center rounded-full border border-emerald-600 bg-white px-8 py-3 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-emerald-50">Buat
+            Campaign</a>
+        @endauth
       </div>
     </div>
   </section>
@@ -75,22 +81,34 @@
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
           @foreach ($featuredCampaigns as $campaign)
-            <article class="overflow-hidden rounded-3xl bg-white shadow-sm">
+            <article class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm">
               <img class="h-64 w-full object-cover" src="{{ Storage::url($campaign->cover_image) }}"
                 alt="{{ $campaign->title }}">
-              <div class="p-8">
+              <div class="flex flex-1 flex-col p-8">
                 <span
-                  class="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">{{ $campaign->category }}</span>
+                  class="inline-flex w-fit rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700">{{ $campaign->category }}</span>
                 <h3 class="mt-4 text-2xl font-semibold text-slate-900">{{ $campaign['title'] }}</h3>
                 <p class="mt-3 text-slate-600">{{ $campaign->excerpt }}</p>
-                <div class="mt-6 space-y-4">
+                <br>
+                <div class="mt-auto space-y-4">
                   <div class="flex items-center justify-between text-sm text-slate-500">
-                    <span>{{ $campaign['donors'] }} donor</span>
-                    <span>{{ number_format($campaign->current, 0, ',', '.') }} /
-                      {{ number_format($campaign->target, 0, ',', '.') }}</span>
+                    <span>{{ $campaign->donor_count }} donor</span>
+
+                    <span>
+                      Rp {{ number_format($campaign->current_amount, 0, ',', '.') }}
+                      /
+                      Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}
+                    </span>
                   </div>
+
                   <div class="h-3 overflow-hidden rounded-full bg-zinc-200">
-                    <div class="h-full rounded-full bg-emerald-500"></div>
+                    <div class="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                      style="width: {{ $campaign->progress_percent }}%">
+                    </div>
+                  </div>
+
+                  <div class="text-right text-xs font-medium text-emerald-700">
+                    {{ $campaign->progress_percent }}%
                   </div>
                 </div>
                 <a href="{{ route('campaigns.show', $campaign) }}"

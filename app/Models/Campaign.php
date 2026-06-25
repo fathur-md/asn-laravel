@@ -6,6 +6,7 @@ use Database\Factories\CampaignFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Campaign extends Model
 {
@@ -28,6 +29,7 @@ class Campaign extends Model
         'target_amount' => 'decimal:2',
         'current_amount' => 'decimal:2',
         'deadline_at' => 'datetime',
+        'donor_count' => 'integer'
     ];
 
     public function user(): BelongsTo
@@ -35,12 +37,12 @@ class Campaign extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function donations()
+    public function donations(): HasMany
     {
         return $this->hasMany(Donation::class);
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
