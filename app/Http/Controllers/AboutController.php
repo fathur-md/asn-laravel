@@ -17,18 +17,35 @@ class AboutController extends Controller
                 'nama' => 'Ferdiyansyah Pratama Putra',
                 'nim' => '241110117',
                 'role' => 'ketua',
+                'tugas' => 'Team Lead'
             ],
             [
                 'id' => 2,
                 'nama' => 'Muhammad Fathurrahman',
                 'nim' => '241110109',
                 'role' => 'anggota',
+                'tugas' => 'Frontend'
             ],
             [
-                'id' => 4,
+                'id' => 3,
                 'nama' => 'Maria Violeta V. Wungubelen',
                 'nim' => '241110105',
                 'role' => 'anggota',
+                'tugas' => 'Backend'
+            ],
+            [
+                'id' => 4,
+                'nama' => 'rey',
+                'nim' => '241110120',
+                'role' => 'anggota',
+                'tugas' => 'Isi sendiri'
+            ],
+            [
+                'id' => 5,
+                'nama' => 'alio',
+                'nim' => '241110120',
+                'role' => 'anggota',
+                'tugas' => 'Isi sendiri'
             ],
         ];
     }
