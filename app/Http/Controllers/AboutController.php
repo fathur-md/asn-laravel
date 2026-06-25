@@ -25,28 +25,15 @@ class AboutController extends Controller
                 'role' => 'anggota',
             ],
             [
-                'id' => 3,
+                'id' => 4,
                 'nama' => 'Maria Violeta V. Wungubelen',
                 'nim' => '241110105',
-                'role' => 'anggota',
-            ],
-            [
-                'id' => 4,
-                'nama' => 'rey',
-                'nim' => '241110120',
-                'role' => 'anggota',
-            ],
-            [
-                'id' => 5,
-                'nama' => 'alio',
-                'nim' => '241110120',
                 'role' => 'anggota',
             ],
         ];
     }
 
     public function index()
-    
     {
 
         return view('about.index', ['teams' => self::getTeam()]);

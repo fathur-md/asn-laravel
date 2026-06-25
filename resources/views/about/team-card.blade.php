@@ -1,5 +1,5 @@
 @php
-  $role = ['Team Lead', 'UI UX Frontend', 'Backend Engineer'];
+  $role = ['Team Lead', 'UI + Deploy', 'Isi sendiri'];
 @endphp
 
 <div class="mx-auto flex max-w-5xl flex-wrap justify-center gap-4">
