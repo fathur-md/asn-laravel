@@ -18,11 +18,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            // tambahan untuk project donasi
-            $table->string('role')->default('donatur'); // admin, organizer, donatur
-            $table->string('phone')->nullable();
-            $table->string('avatar')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
         });

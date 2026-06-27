@@ -37,7 +37,5 @@ Route::middleware('auth')->group(function () {
   Route::post('/campaigns/{campaign}/comment', [CampaignController::class, 'comment'])->name('campaigns.comment');
 
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-  Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
-
   Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

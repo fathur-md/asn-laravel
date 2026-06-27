@@ -72,12 +72,6 @@ Proyek ini dikembangkan sebagai tugas kelompok mata kuliah berbasis Laravel deng
 
 - Ringkasan jumlah campaign yang dibuat, donasi terbaru, dan status campaign aktif.
 
-### Dashboard Admin
-
-- Hanya pengguna dengan role `admin` yang dapat mengakses.
-- Menampilkan statistik: total campaign, campaign aktif, total donasi, total donatur.
-- **Catatan:** View untuk halaman ini belum dibuat — controller (`DashboardController@admin`) dan route (`dashboard.admin`) sudah terdaftar, tetapi view `dashboard/admin.blade.php` belum tersedia.
-
 ## Tech Stack
 
 | Layer               | Teknologi                                            |
@@ -103,7 +97,7 @@ Proyek ini dikembangkan sebagai tugas kelompok mata kuliah berbasis Laravel deng
 │   │       ├── AuthController.php        # Register, login, logout
 │   │       ├── CampaignController.php    # CRUD campaign, donasi, komentar
 │   │       ├── Controller.php            # Abstract base (kosong)
-│   │       ├── DashboardController.php   # Dashboard user & admin
+│   │       ├── DashboardController.php   # Dashboard user
 │   │       └── HomeController.php        # Halaman beranda
 │   ├── Models/
 │   │   ├── Campaign.php
@@ -138,7 +132,6 @@ Proyek ini dikembangkan sebagai tugas kelompok mata kuliah berbasis Laravel deng
 │   │   └── app.js                         # Alpine.js bootstrap
 │   └── views/
 │       ├── components/
-│       │   ├── button.blade.php
 │       │   ├── footer.blade.php
 │       │   ├── layout.blade.php
 │       │   └── navbar.blade.php
@@ -164,10 +157,7 @@ Proyek ini dikembangkan sebagai tugas kelompok mata kuliah berbasis Laravel deng
 ├── tests/
 │   ├── Feature/
 │   │   ├── CampaignTest.php
-│   │   ├── DashboardTest.php
-│   │   └── ExampleTest.php
-│   └── Unit/
-│       └── ExampleTest.php
+│   │   └── DashboardTest.php
 ├── composer.json
 ├── package.json
 ├── vite.config.js
@@ -344,12 +334,10 @@ php artisan test
 
 | File                              | Deskripsi                                                   |
 | --------------------------------- | ----------------------------------------------------------- |
-| `tests/Feature/CampaignTest.php`  | Test donasi memperbarui progress campaign                   |
-| `tests/Feature/DashboardTest.php` | Test akses dashboard user, akses admin, dan pembatasan role |
-| `tests/Feature/ExampleTest.php`   | Test default Laravel                                        |
-| `tests/Unit/ExampleTest.php`      | Test unit default                                           |
+| `tests/Feature/CampaignTest.php`  | Test donasi memperbarui progress campaign |
+| `tests/Feature/DashboardTest.php` | Test akses dashboard user                 |
 
-**Catatan:** Masih banyak fitur yang belum memiliki test (CRUD campaign, autentikasi, komentar, admin dashboard view).
+**Catatan:** Masih banyak fitur yang belum memiliki test (CRUD campaign, autentikasi, komentar).
 
 ## Screenshot
 

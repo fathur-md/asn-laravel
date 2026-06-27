@@ -22,24 +22,4 @@ class DashboardTest extends TestCase
         $response->assertSee('Logout');
     }
 
-    public function test_non_admin_cannot_open_admin_dashboard(): void
-    {
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get(route('dashboard.admin'));
-
-        $response->assertForbidden();
-    }
-
-    public function test_admin_can_open_admin_dashboard(): void
-    {
-        /** @var User $admin */
-        $admin = User::factory()->create(['role' => 'admin']);
-
-        $response = $this->actingAs($admin)->get(route('dashboard.admin'));
-
-        $response->assertOk();
-        $response->assertSee('Admin Dashboard');
-    }
 }

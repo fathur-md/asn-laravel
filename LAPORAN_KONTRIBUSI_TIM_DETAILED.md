@@ -103,7 +103,7 @@ Beberapa kontributor menggunakan banyak alamat email. Mereka telah dikonsolidasi
     - Keempat model (Campaign, Donation, Comment, User) — 100% kepenulisan berdasarkan blame
     - CRUD Campaign — dioptimalkan/direfactor untuk versi produksi (~78% blame CampaignController)
     - Sistem donasi dan sistem komentar — seluruh metode `donate()` dan `comment()`
-    - Dashboard pengguna dan dashboard admin — controller dan semua view
+    - Dashboard pengguna — controller dan view
     - Halaman beranda dengan statistik, kategori, campaign unggulan, testimoni
     - Navigation bar, komponen layout, penyempurnaan footer
     - Halaman about (desain awal dan komponen kartu tim)
@@ -111,7 +111,7 @@ Beberapa kontributor menggunakan banyak alamat email. Mereka telah dikonsolidasi
     - Konfigurasi Vite, CSS, JavaScript bootstrap
     - Konfigurasi deployment (.env.example, .railwayignore, AppServiceProvider)
     - Dokumentasi README dan AGENTS.md
-- **File Penting:** `CampaignController.php`, `Campaign.php`, `Donation.php`, `Comment.php`, `DashboardController.php`, `HomeController.php`, `layout.blade.php`, `navbar.blade.php`, `home/index.blade.php`, `dashboard/index.blade.php`, `dashboard/admin.blade.php`, semua file migration, `CampaignFactory.php`, `CampaignTest.php`, `DashboardTest.php`, `vite.config.js`, `app.css`, `app.js`
+- **File Penting:** `CampaignController.php`, `Campaign.php`, `Donation.php`, `Comment.php`, `DashboardController.php`, `HomeController.php`, `layout.blade.php`, `navbar.blade.php`, `home/index.blade.php`, `dashboard/index.blade.php`, semua file migration, `CampaignFactory.php`, `CampaignTest.php`, `DashboardTest.php`, `vite.config.js`, `app.css`, `app.js`
 - **Tingkat Kontribusi (Git):** Tinggi — penulis utama ~66% baris kode proyek.
 - **Tanggung Jawab Bersama:** CampaignController dan view campaign disempurnakan secara kolaboratif dengan Maria Violeta dan Ferdiyansyah. AboutController dibuat oleh Fathurrahman dan kemudian dimodifikasi oleh Ferdiyansyah.
 

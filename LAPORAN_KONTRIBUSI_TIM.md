@@ -48,7 +48,7 @@ AI hanya membantu **merangkum dan menyusun dokumentasi**. Seluruh informasi bera
 **Muhammad Fathurrahman** (45 commit, 53%)
 
 - Penyiapan proyek, migrasi database, 4 model (kepenulisan 100%)
-- CRUD Campaign, sistem donasi & komentar, dashboard user & admin
+- CRUD Campaign, sistem donasi & komentar, dashboard user
 - Halaman beranda, navbar, layout, halaman about
 - Factory, test, konfigurasi deployment, dokumentasi
 - Refactoring besar-besaran pada kode yang sudah ada
